@@ -1,6 +1,7 @@
 import React from "react";
 import Book from "./Book";
 import { shelfNameMapper } from "./utils";
+import { Link } from "react-router-dom";
 
 class HomeScreen extends React.Component {
   componentDidMount() {
@@ -40,8 +41,13 @@ class HomeScreen extends React.Component {
               })}
             </div>
           </div>
-          <div className="open-search">
-            <button onClick={showSearchPage}>Add a book</button>
+
+          <div>
+            <Link to="/search">
+              <div className="open-search">
+                <button onClick={showSearchPage}>Add a book</button>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

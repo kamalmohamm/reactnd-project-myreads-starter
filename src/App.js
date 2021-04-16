@@ -3,6 +3,7 @@ import "./App.css";
 import SearchScreen from "./SearchScreen";
 import HomeScreen from "./HomeScreen";
 import * as BooksAPI from "./BooksAPI";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 
 class BooksApp extends React.Component {
   state = {
@@ -55,31 +56,37 @@ class BooksApp extends React.Component {
   render() {
     const { isLoading } = this.state;
     return (
-      <div>
-        {isLoading && (
-          <div class="loaderWrapper">
-            <div class="loader" />
-          </div>
-        )}
-        {this.state.searchPageShown ? (
-          <SearchScreen
-            hideSearchPage={this.hideSearchPage}
-            setLoading={this.setLoading}
-            clearLoading={this.clearLoading}
-            books={this.state.ctaegorizedBooks}
-            fetchBooks={this.fetchBooks}
+      <Router>
+        <div>
+          <Route
+            path="/search"
+            render={() => (
+              <SearchScreen
+                hideSearchPage={this.hideSearchPage}
+                setLoading={this.setLoading}
+                clearLoading={this.clearLoading}
+                books={this.state.ctaegorizedBooks}
+                fetchBooks={this.fetchBooks}
+              />
+            )}
           />
-        ) : (
-          <HomeScreen
-            showSearchPage={this.showSearchPage}
-            setLoading={this.setLoading}
-            clearLoading={this.clearLoading}
-            books={this.state.ctaegorizedBooks}
-            setBooks={this.setCategorizedBooks}
-            fetchBooks={this.fetchBooks}
+
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <HomeScreen
+                showSearchPage={this.showSearchPage}
+                setLoading={this.setLoading}
+                clearLoading={this.clearLoading}
+                books={this.state.ctaegorizedBooks}
+                setBooks={this.setCategorizedBooks}
+                fetchBooks={this.fetchBooks}
+              />
+            )}
           />
-        )}
-      </div>
+        </div>
+      </Router>
     );
   }
 }
